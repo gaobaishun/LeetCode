@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/LeetCode.iml" filepath="$PROJECT_DIR$/.idea/LeetCode.iml" />
       <module fileurl="file://$PROJECT_DIR$/LinkedList/LinkedList.iml" filepath="$PROJECT_DIR$/LinkedList/LinkedList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/integer/integer.iml" filepath="$PROJECT_DIR$/integer/integer.iml" />
       <module fileurl="file://$PROJECT_DIR$/stringproblem/stringproblem.iml" filepath="$PROJECT_DIR$/stringproblem/stringproblem.iml" />
     </modules>
   </component>
