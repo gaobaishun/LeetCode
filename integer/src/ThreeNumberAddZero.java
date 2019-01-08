@@ -19,61 +19,41 @@ import java.util.*;
  **/
 public class ThreeNumberAddZero {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> lists=new ArrayList<>();
-        int a=0;
-        int b=0;
-        boolean bo=false;
-        for(int ai=0;ai<nums.length;ai++){
-            a=nums[ai];
-            for(int bi=ai+1;bi<nums.length;bi++){
-                b=nums[bi];
-                for(int ci=bi+1;ci<nums.length;ci++){
-                    List<Integer> list=new ArrayList<>();
-                    list.add(a);
-                    list.add(b);
-                    list.add(nums[ci]);
-                    list=paixu(list);
-                    if(a+b==0-nums[ci]){
-                        for(List<Integer> l:lists){
-                            if(l.get(0)==list.get(0)&&l.get(1)==list.get(1)){
-                                bo=true;
-                                break;
-                            }
-                        }
 
-                        if(!bo) {
-                            lists.add(list);
-                        }else{
-                            bo=true;
-                        }
-                    }
+        return null;
+    }
+
+    public void quckliyP(int[] nums,int start,int end){
+        int sint=nums[start];
+        int startIndex=start;
+        int endIndex=end;
+        int temp=-1;
+        while(true){
+            while(nums[++startIndex]>=sint) {
+                if(startIndex==end){
+                    break;
                 }
             }
-        }
-        return lists;
-    }
-    public List<Integer> paixu(List<Integer> list){
-        int temp= list.get(0);
-        for(int i=1;i<list.size();i++){
-            if(temp<=list.get(i)){
-                continue;
-            }else{
-                int t=list.get(i);
-                list.set(i,temp);
-                temp=t;
+            while(nums[--end]<=sint){
+                if(endIndex==start){
+                    break;
+                }
             }
+            if(startIndex>=endIndex) break;
+            temp=nums[startIndex];
+            nums[startIndex]=nums[endIndex];
+            nums[endIndex]=temp;
         }
-        list.set(0,temp);
-        if(list.get(1)>list.get(2)){
-            temp=list.get(1);
-            list.set(1,list.get(2));
-            list.set(2,temp);
-        }
-        return list;
+        temp=nums[start];
+        nums[start]=nums[endIndex];
+        nums[endIndex]=temp;
+        quckliyP(nums,start,endIndex);
+        quckliyP(nums,end,startIndex);
     }
 
     public static void main(String[] args){
         int[] temp={-1,0,1,2,-1,-4};
-        System.out.println(new ThreeNumberAddZero().threeSum(temp));
+        new ThreeNumberAddZero().quckliyP(temp,0,5);
+        System.out.println(temp);
     }
 }
