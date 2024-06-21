@@ -15,9 +15,64 @@ import java.util.*;
  * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
  */
 public class WordSplit {
+
+    //存储计算结果，未计算为 -1，false 为 0， true 为 1
+    public List<Integer> resultSave=null;
+
     public boolean wordBreak(String s, List<String> wordDict) {
-        LinkedList<String> l=new LinkedList<>(wordDict);
-        return wordBreakChildren(s,0,s.length()-1,l);
+        resultSave=new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            resultSave.add(-1);
+        }
+        List<List<String>> dict=new ArrayList<>(26);
+        for (int i = 0; i < 26; i++) {
+            dict.add(new ArrayList<>());
+        }
+        for (String temp:
+             wordDict) {
+            if(s.indexOf(temp)>-1) {
+
+
+                char c = temp.charAt(0);
+                int index = c - 97;
+                List<String> strings = dict.get(index);
+
+                strings.add(temp);
+            }
+        }
+
+        return wordBreakChildren(s,0,dict);
+
+    }
+
+    public boolean wordBreakChildren(String s,int start,List<List<String>> dict){
+
+
+        if(start>=s.length()){
+
+            return true;
+        }
+        Integer i = resultSave.get(start);
+        if(i!=-1){
+            return i==0?false:true;
+        }
+        char c=s.charAt(start);
+        List<String> dictList=dict.get(c-97);
+        for (String tempStr :
+                dictList) {
+
+            //判断s从start开始的字符串是否和tempStr相等
+            //if (s.indexOf(tempStr, start) > -1&&s.substring(start,start+tempStr.length()).equals(tempStr)) {
+            if (s.indexOf(tempStr, start)==start) {
+                if(wordBreakChildren(s,start+tempStr.length(),dict)){
+                    resultSave.set(start,1);
+                    return true;
+                }
+            }
+        }
+
+        resultSave.set(start,0);
+        return false;
     }
 
     public boolean wordBreakChildren(String s, int low, int high, LinkedList<String> wordDict ){
@@ -56,11 +111,11 @@ public class WordSplit {
         return false;
     }
 
+
+
     public static void main(String[] args) {
-
-
-        String s="cars";
-        List<String> wordDict= Arrays.asList(new String[]{"car","ca","rs"});
+        String s="catsandog";
+        List<String> wordDict= Arrays.asList(new String[]{"cats","dog","sand","and","cat"});
         System.out.println(new WordSplit().wordBreak(s,wordDict));
         LinkedList<String> list= new LinkedList<>(Arrays.asList(new String[]{"cats", "dog", "sand", "and", "cat"}));
 //        for (String string:
@@ -90,9 +145,10 @@ public class WordSplit {
 //            System.out.println(string);
 //        }
 
-        for (String str :
-                list) {
-            System.out.println(str);
-        }
+//        for (String str :
+//                list) {
+//            System.out.println(str);
+//        }
+        System.out.println('a'-0);
     }
 }
